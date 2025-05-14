@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sutryanto Store - Elektronik Bekas Berkualitas</title>
+    <style>
+        /* Reset dan style dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        .logo span {
+            color: #ecf0f1;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #3498db;
+        }
+        
+        /* Hero section dengan slideshow */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding-top: 4rem;
+            overflow: hidden;
+        }
+        
+        .slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-position: center;
+            background-size: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+        }
+        
+        .slide.active {
+            opacity: 1;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Features */
+        .features {
+            padding: 5rem 2rem;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+        }
+        
+        .features-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .feature {
+            flex: 0 0 300px;
+            margin: 1rem;
+            padding: 2rem;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .feature:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #3498db;
+        }
+        
+        .feature h3 {
+            margin-bottom: 1rem;
+        }
+        
+        /* Products */
+        .products {
+            padding: 5rem 2rem;
+            background-color: #f5f5f5;
+        }
+        
+        .products-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .product-card {
+            flex: 0 0 280px;
+            margin: 1rem;
+            background-color: white;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-img {
+            height: 200px;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #3498db;
+            margin: 0.5rem 0;
+        }
+        
+        .product-rating {
+            color: #f39c12;
+            margin-bottom: 1rem;
+        }
+        
+        .buy-btn {
+            display: block;
+            width: 100%;
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            padding: 0.7rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .buy-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 5rem 2rem;
+            background-color: white;
+        }
+        
+        .testimonials-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .testimonial {
+            flex: 0 0 350px;
+            margin: 1rem;
+            padding: 2rem;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            background-color: #ddd;
+        }
+        
+        /* About */
+        .about {
+            padding: 5rem 2rem;
+            background-color: #2c3e50;
+            color: white;
+        }
+        
+        .about-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .about-info {
+            flex: 0 0 100%;
+            max-width: 600px;
+        }
+        
+        .about h2 {
+            color: white;
+            margin-bottom: 2rem;
+        }
+        
+        /* Contact */
+        .contact {
+            padding: 5rem 2rem;
+            background-color: #f5f5f5;
+        }
+        
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .contact-info {
+            flex: 0 0 100%;
+            max-width: 500px;
+            margin-bottom: 2rem;
+        }
+        
+        .contact-form {
+            flex: 0 0 100%;
+            max-width: 600px;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a252f;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .social-links {
+            margin: 1rem 0;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 0.5rem;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+        
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .logo-container {
+                margin-bottom: 1rem;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+            }
+            
+            
+            .nav-links li {
+                margin: 0 0.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <div class="logo-container" style="display: flex; align-items: center;">
+                <div class="profile-pic" style="margin-right: 15px;">
+                    <img src="images/foto_saya.jpg" alt="Foto Sutryanto" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid #3498db;">
+                </div>
+                <div class="logo">Sutryanto <span>Store</span></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Beranda</a></li>
+                <li><a href="#products">Produk</a></li>
+                <li><a href="#about">Tentang</a></li>
+                <li><a href="#testimonials">Testimoni</a></li>
+                <li><a href="#contact">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section with Slideshow -->
+    <section class="hero" id="home">
+        <div class="slideshow">
+            <!-- Placeholder images untuk slideshow -->
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1550009158-9ebf69173e03?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2101&q=80')"></div>
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1468495244123-6c6c332eeece?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2021&q=80')"></div>
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2732&q=80')"></div>
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1498049794561-7780e7231661?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80')"></div>
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1588508065123-287b28e013da?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80')"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Elektronik Bekas Berkualitas, Terjangkau & bermanfaat untuk dunia</h1>
+            <p>Sutryanto Store menyediakan berbagai elektronik bekas berkualitas dengan harga yang ramah di kantong. Semua barang telah melalui uji kualitas oleh 9 Naga.</p>
+            <a href="#products" class="btn">Lihat Produk</a>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <h2 class="section-title">Kenapa Harus Pilih sutryanto store?</h2>
+        <div class="features-container">
+            <div class="feature">
+                <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                <h3>Kualitas Terjamin</h3>
+                <p>Semua barang telah melalui pemeriksaan kualitas yang ketat oleh tim teknisi 9 Naga.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon"><i class="fas fa-tag"></i></div>
+                <h3>Harga Terjangkau</h3>
+                <p>Dapatkan elektronik berkualitas dengan harga yang jauh lebih murah dari toko dibatoh.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>Garansi Produk</h3>
+                <p>Semua produk dilengkapi garansi hingga sampai rusak & datanglah kembali ketoko kami.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products" id="products">
+        <h2 class="section-title">Produk Unggulan</h2>
+        <div class="products-container">
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1468&q=80" alt="Laptop Bekas" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="product-info">
+                    <h3>Laptop Asus A456U</h3>
+                    <p>Core i7 8th Gen, RAM 8GB, SSD 256GB</p>
+                    <div class="product-price">Rp 2.500.000</div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <button class="buy-btn">Beli Sekarang</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2027&q=80" alt="Smartphone Bekas" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="product-info">
+                    <h3>Samsung Galaxy S21</h3>
+                    <p>RAM 8GB, Storage 128GB, Kondisi 90% sangat baik</p>
+                    <div class="product-price">Rp 3.200.000</div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <button class="buy-btn">Beli Sekarang</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2069&q=80" alt="Tablet Bekas" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="product-info">
+                    <h3>iPad Pro 11" 2020</h3>
+                    <p>256GB, Wifi, Kondisi Mulus seperti dasha taran 95%</p>
+                    <div class="product-price">Rp 2.800.000</div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <button class="buy-btn">Beli Sekarang</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1587202372616-b43abea06c2a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="PC Gaming Bekas" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="product-info">
+                    <h3>PC Gaming Custom</h3>
+                    <p>Ryzen 7 3600, RTX 670 Super, 16GB RAM</p>
+                    <div class="product-price">Rp 5.500.000</div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <button class="buy-btn">Beli Sekarang</button>
+                </div>
+            </div>
+            <!-- Produk baru 1 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2000&q=80" alt="Monitor Gaming Bekas" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="product-info">
+                    <h3>Macbook M1</h3>
+                    <p>27 Inch, 4K UHD, 144Hz, 1ms Response Time, HDR</p>
+                    <div class="product-price">Rp 4.800.000</div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <button class="buy-btn">Beli Sekarang</button>
+                </div>
+            </div>
+            <!-- Produk baru 2 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2000&q=80" alt="Kamera Mirrorless Bekas" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="product-info">
+                    <h3>Arduino Mega 82666</h3>
+                    <p>Full Frame, Kondisi 95%</p>
+                    <div class="product-price">Rp 12.500.000</div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <button class="buy-btn">Beli Sekarang</button>
+                </div>
+            </div>
+            <!-- Produk baru 3 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1565849904461-04a58ad377e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2000&q=80" alt="Headphone Wireless Bekas" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="product-info">
+                    <h3>Sony WH-1000XM4</h3>
+                    <p>Noise Cancelling, 30 Jam Battery, Kondisi 98%</p>
+                    <div class="product-price">Rp 2.300.000</div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <button class="buy-btn">Beli Sekarang</button>
+                </div>
+            </div>
+            <!-- Produk baru 4 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1593642702909-dec73df255d7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2000&q=80" alt="Speaker Bluetooth Bekas" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="product-info">
+                    <h3>Asus VivoBook 17890</h3>
+                    <p> 24 Jam Battery dan tahan lama tanpa cas, Kondisi 92%</p>
+                    <div class="product-price">Rp 1.850.000</div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <button class="buy-btn">Beli Sekarang</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <h2 class="section-title">Apa Kata Pelanggan Kami</h2>
+        <div class="testimonials-container">
+            <div class="testimonial">
+                <div class="testimonial-text">
+                    "Saya membeli laptop bekas dari Sutryanto Store, kondisinya sangat bagus seperti baru dan performanya bagus. Harganya juga sangat bersaing. Puas banget belanja disini!"
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-img">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Ahmad Rizki" width="50" height="50" style="border-radius: 50%;">
+                    </div>
+                    <div>
+                        <h4>Cristiano Ronaldo</h4>
+                        <p>TURKI, tungkop belok kiri</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-text">
+                    "Awalnya coba-coba lohh kok enakk, tapi setelah lihat review Sutryanto Store dan coba datang ke tokonya, saya yakin untuk beli. Sekarang sudah 6 bulan pakai dan ga ada masalah sama sekali."
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-img">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Dina Pratiwi" width="50" height="50" style="border-radius: 50%;">
+                    </div>
+                    <div>
+                        <h4>Walid</h4>
+                        <p>tanjung tidak selamat</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-text">
+                    "Pelayanannya ramah, barangnya asli sesuai deskripsi, garansi jelas. Ada sedikit masalah dengan iPad yang saya beli, langsung ditangani dengan cepat. Rekomendasi banget!"
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-img">
+                        <img src="https://randomuser.me/api/portraits/men/62.jpg" alt="Budi Santoso" width="50" height="50" style="border-radius: 50%;">
+                    </div>
+                    <div>
+                        <h4>Antonio Matehus De Santos</h4>
+                        <p>Kajhu</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <!-- About -->
+   <section class="about" id="about">
+    <div class="about-container">
+        <div class="about-info">
+            <h2 class="section-title">Tentang Sutryanto de santos Store</h2>
+            <p>Sutryanto Store didirikan pada tahun 1942 pada saat jepang menyerang didirikan oleh Sutryanto yang memiliki passion dalam bidang elektronik, cyber security, android developper. Berawal dari coba-coba lah kok enak, Sutryanto memulai bisnis jual beli elektronik bekas dengan fokus pada kualitas, kejujuran dan hati yang tulus.</p>
+            <p>Kami berkomitmen untuk menyediakan produk elektronik bekas berkualitas dengan harga terjangkau. Semua produk yang kami jual telah melalui serangkaian tes dan pemeriksaan oleh tim teknisi 9 Naga untuk memastikan kondisi dan fungsinya optimal.</p>
+            <p>Visi kami adalah menjadi toko elektronik bekas terpercaya di Indonesia yang mengutamakan kepuasan pelanggan dan keberlanjutan lingkungan dengan memberikan kesempatan kedua pada produk elektronik.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Contact -->
+<section class="contact" id="contact">
+    <h2 class="section-title">Hubungi Sutryanto</h2>
+    <div class="contact-container">
+        <div class="contact-info">
+            <h3>Informasi Kontak</h3>
+            <p><i class="fas fa-map-marker-alt"></i> Jl. tanjung tidak selamat, desa tanjung selamat, aceh besar</p>
+            <p><i class="fas fa-phone"></i> +62 822-7399-4123</p>
+            <p><i class="fas fa-envelope"></i> sutryanto92@gmail.com</p>
+            <p><i class="fas fa-clock"></i> Buka Setiap Hari: 01.00 - 24.00 WAT, WAKTU ANEUK TEKNIK</p>
+        </div>
+        <div class="contact-form">
+            <h3>Kirim Pesan</h3>
+            <form>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Nama Lengkap">
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Subjek">
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" placeholder="Pesan Anda"></textarea>
+                </div>
+                <button type="submit" class="btn">Kirim Pesan</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <div class="logo">Sutryanto <span>Store</span></div>
+        <p>Elektronik Bekas Berkualitas, Terjangkau & paling murah sejagat galaxy bimasakti</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p>&copy; 2025 Sutryanto Store. Hak Cipta Dilindungi Oleh Pemuda Pancasila.</p>
+    </div>
+</footer>
+
+<script>
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // Slideshow background
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+    
+    // Untuk menampilkan selanjutnya
+    function nextSlide() {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+    }
+    
+    // Menjalankan slideshow secara otomatis setiap 2 detik
+    setInterval(nextSlide, 2000);
+</script>
+</body>
+</html>
